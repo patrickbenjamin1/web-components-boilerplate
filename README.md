@@ -57,7 +57,7 @@ I've also written a really basic client side routing component which takes a pat
 
 -   ### Dumb render is a dumb idiot
 
-    Unlike React, which keeps track of which element is which through the virtual DOM when rerendering, the solution I've gone for for now is a total scrapping and recreating of the markup in the component. This is, of course, dumb.
+    Unlike React, which keeps track of which element is which through the virtual DOM when rerendering, the solution I've gone for for now is a total scrapping and recreating of the markup in the component. This is, of course, dumb. More than anything else, it means that anything that's gonna rerender is gonna be completely reinstantiated every time - basically, can't do anything with animations. This is my own shortcoming, mainly cus I'm not investing much time into this for now.
 
 -   ### Support
 

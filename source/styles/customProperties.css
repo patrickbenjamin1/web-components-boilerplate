@@ -15,7 +15,7 @@ html {
   --colour-accent: blue;
   --colour-accent-secondary: red;
 
-  --colour-background: --white;
+  --colour-background: var(--white);
 
   /* screen sizes */
   --screen-size-tablet: 1024px;

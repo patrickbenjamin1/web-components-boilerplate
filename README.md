@@ -53,6 +53,8 @@ I've also written a really basic client side routing component which takes a pat
 
     Typesafety is a big issue generally with attributes. Attributes can't be typed properly, and essentially have to be `JSON.stringify`d and `JSON.parse`d to get anything other than a string in a attribute. I have a basic props implementation, but as it stands, everything is limited to being typed as a string and I can't really think of an elegant solution to that.
 
+    Another big part of this issue is that, because this is just straight up HTML, there won't be a way of doing type checking when adding custom attributes to Web Components.
+
 A lot of solutions, I'm sure, could be found to these problems by abstracting more stuff into the `CoolComponent` class. Generally, the issue, really, is boilerplating too much and with too much room for mistakes when doing this.
 
 I'm sure I'll encounter a tonne more issues with this implementation if I ever actually use it for anything.

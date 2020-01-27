@@ -4,14 +4,8 @@ const error = 2;
 
 module.exports = {
     parser: '@typescript-eslint/parser',
-    extends: [
-        'plugin:@typescript-eslint/recommended',
-        'airbnb-base',
-        'prettier/@typescript-eslint',
-        'plugin:prettier/recommended',
-        'plugin:react/recommended',
-    ],
-    plugins: ['import', 'prettier', 'react', 'simple-import-sort'],
+    extends: ['plugin:@typescript-eslint/recommended', 'airbnb-base', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+    plugins: ['import', 'prettier', 'simple-import-sort'],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: 'module',
@@ -37,9 +31,6 @@ module.exports = {
 
         'import/no-unresolved': off,
         'import/prefer-default-export': off,
-
-        'react/no-unescaped-entities': off,
-        'react/prop-types': off,
 
         'simple-import-sort/sort': error,
         'no-inner-declarations': off,

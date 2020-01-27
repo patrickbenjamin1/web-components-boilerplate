@@ -1,24 +1,18 @@
 import { CoolComponent } from '../component';
 
 import html from './card.html';
-import { HTMLHelpers } from '../../helpers/html';
 
-export class DataCard extends CoolComponent {
+export class DataCard extends CoolComponent<{ clickedText: string }> {
     constructor() {
-        super(html);
+        super(html, { clickedText: 'NOT CLICKED' }, ['cardName']);
     }
 
-    processHtml(html: string) {
-        return HTMLHelpers.replaceVariables(html, [
-            {
-                variable: 'card-name',
-                value: this.cardName,
-            },
-            {
-                variable: 'to',
-                value: this.to,
-            },
-        ]);
+    onClick() {
+        this.setState({ clickedText: this.state.clickedText === 'CLICKED' ? 'NOT CLICKED' : 'CLICKED' });
+    }
+
+    beforeRender() {
+        this.addEventListener('click', this.onClick);
     }
 
     set cardName(name: string) {

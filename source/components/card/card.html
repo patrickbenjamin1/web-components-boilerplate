@@ -1,0 +1,25 @@
+<div class="card">
+    <style>
+        .card {
+            box-shadow: var(--shadow);
+            padding: var(--spacing-small);
+            margin-bottom: var(--spacing-medium);
+        }
+
+        .card .card-bottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+
+    <div class="card-bottom">
+        <h1>{{card-name}}</h1>
+
+        <a href="{{to}}">
+            GO
+        </a>
+    </div>
+
+    <slot></slot>
+</div>

@@ -59,6 +59,10 @@ I've also written a really basic client side routing component which takes a pat
 
     Unlike React, which keeps track of which element is which through the virtual DOM when rerendering, the solution I've gone for for now is a total scrapping and recreating of the markup in the component. This is, of course, dumb.
 
+-   ### Support
+
+    Bad
+
 A lot of solutions, I'm sure, could be found to these problems by abstracting more stuff into the `CoolComponent` class. Generally, the issue, really, is boilerplating too much and with too much room for mistakes when doing this.
 
-I'm sure I'll encounter a tonne more issues with this implementation if I ever actually use it for anything.
+I'm sure I'll encounter a tonne more issues with this implementation if I ever actually use it for anything. Even more likely, is that if I use it for a bit, I'll find general shortcomings with the whole approach of trying to get Web Components to behave pretty much just like React, and end up coming up with a whole different approach to this.

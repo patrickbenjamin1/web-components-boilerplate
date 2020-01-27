@@ -2,7 +2,16 @@ import { CoolComponent } from '../component';
 
 import html from './card.html';
 
-export class DataCard extends CoolComponent<{ clickedText: string }, { cardName: string }> {
+interface ICardState {
+    clickedText: string;
+}
+
+interface ICardProps {
+    cardName: string;
+    to: string;
+}
+
+export class DataCard extends CoolComponent<ICardState, ICardProps> {
     constructor() {
         super(html, { clickedText: 'NOT CLICKED' });
     }

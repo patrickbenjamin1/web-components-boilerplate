@@ -54,7 +54,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
     /** STATE */
 
     state: TState;
-    setState = (newState: Partial<TState>) => {
+    setState = (newState: Partial<TState>, callback?: (newState: TState) => void) => {
         this.state = {
             ...this.state,
             ...newState,
@@ -66,6 +66,9 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
             setTimeout(() => {
                 this.render();
                 this.willRender = false;
+                if (callback) {
+                    callback(this.state);
+                }
             });
         }
     };

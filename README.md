@@ -41,7 +41,7 @@ I've also written a really basic client side routing component which takes a pat
 
     Another solution I've seen people touting to this is using CSS @imports, though apparently with the performance hit this brings when used in every component is prettttty hug.
 
--   ### Getting stuff into HTML
+-   ### Getting stuff into markup
 
     This is likely just from being completely spoiled by JSX, but it's frustrating getting data from the component class into the html while trying to limit DOM manipulation to as little as possible. The current implementation is a super basic moustache like situation, but it's still not ideal having to boilerplate around my `processHtml` method in the component class.
 
@@ -49,4 +49,10 @@ I've also written a really basic client side routing component which takes a pat
 
     As it stands, I'm using a really rudimentary React like state implementation, that'll queue up a rerender when setState is called. But in terms of passing attributes around in a way that doesn't involve loads of boilerplating, AND that's typesafe... I'm yet to come up with a good solution.
 
+-   ### Typesafety
+
+    Typesafety is a big issue generally with attributes. Attributes can't be typed properly, and essentially have to be `JSON.stringify`d and `JSON.parse`d to get anything other than a string in a attribute. I have a basic props implementation, but as it stands, everything is limited to being typed as a string and I can't really think of an elegant solution to that.
+
 A lot of solutions, I'm sure, could be found to these problems by abstracting more stuff into the `CoolComponent` class. Generally, the issue, really, is boilerplating too much and with too much room for mistakes when doing this.
+
+I'm sure I'll encounter a tonne more issues with this implementation if I ever actually use it for anything.

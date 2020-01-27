@@ -1,20 +1,19 @@
 import { CoolComponent } from '../component';
 
-class Route extends CoolComponent {
+interface IRouteProps {
+    exact: string;
+    path: string;
+}
+
+class Route extends CoolComponent<{}, IRouteProps> {
     constructor() {
         super('<slot></slot>');
     }
 
     shouldRender() {
-        return this.exact ? window.location.pathname === this.path : window.location.pathname.indexOf(this.path) > -1;
-    }
-
-    get path() {
-        return this.getAttribute('path');
-    }
-
-    get exact() {
-        return this.hasAttribute('exact');
+        return this.props.exact === ''
+            ? window.location.pathname === this.props.path
+            : window.location.pathname.indexOf(this.props.path) > -1;
     }
 }
 

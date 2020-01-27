@@ -4,6 +4,9 @@
             box-shadow: var(--shadow);
             padding: var(--spacing-small);
             margin-bottom: var(--spacing-medium);
+            transition: box-shadow var(--transition-quick);
+            user-select: none;
+            cursor: pointer;
         }
 
         .card .card-bottom {
@@ -11,13 +14,15 @@
             display: flex;
             justify-content: space-between;
         }
+
+        .card:hover {
+            box-shadow: var(--shadow-big);
+        }
     </style>
 
     <div class="card-bottom">
-        <h1>{{cardName}}</h1>
-
         <a href="{{to}}">
-            GO
+            <h1>{{cardName}}</h1>
         </a>
     </div>
 

@@ -55,6 +55,10 @@ I've also written a really basic client side routing component which takes a pat
 
     Another big part of this issue is that, because this is just straight up HTML, there won't be a way of doing type checking when adding custom attributes to Web Components.
 
+-   ### Dumb render is a dumb idiot
+
+    Unlike React, which keeps track of which element is which through the virtual DOM when rerendering, the solution I've gone for for now is a total scrapping and recreating of the markup in the component. This is, of course, dumb.
+
 A lot of solutions, I'm sure, could be found to these problems by abstracting more stuff into the `CoolComponent` class. Generally, the issue, really, is boilerplating too much and with too much room for mistakes when doing this.
 
 I'm sure I'll encounter a tonne more issues with this implementation if I ever actually use it for anything.

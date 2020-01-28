@@ -2,7 +2,7 @@
 
 ## Overview
 
-Largely written as an experiment in the viability of web components, from the point of view of someone who's been writing ReactJS for the last however damn long.
+Largely written as an experiment in the viability of web components, from the point of view of someone who's been writing pretty much exclusively ReactJS for the last however damn long.
 
 Decided to take it even further as an experiment in how much the vanilla web has come in recent years by opting to use only CSS. I'm using Typescript, though, because I'm not some kind of luddite.
 

@@ -41,7 +41,7 @@ For my implementation, I've written a class found in `source/component.ts` which
 
 I've provided lifecycle methods which are called in the basic component lifecycle around the stuff I've written, allowing the new Component to hook into the render process in the base Class.
 
-The extending class should redefine the method `getMarkup`, returning the string value of the html to render in the component. For easier development, I'd recommend using the lit-html vscode plugin, and using the string template tag exported from `source/component.ts`. This enables syntax highlighting and intellisense in the html string.
+The extending class should redefine the method `getMarkup`, returning the string value of the html to render in the component. For easier development, I'd recommend using the lit-html vscode plugin, and using the string template tag exported from `source/component.ts`. This enables syntax highlighting and intellisense in the html string. Additionally, because this is a template string, any variable can be included in this string using the `${whatever this is called}` syntax. This can also be used to conditionally render html.
 
 Changes to the attributes passed into the html tag of a web component, and also to the state defined by the component, will trigger the render method to run again, meaning that `getMarkup` can contain updating references to these.
 
@@ -55,19 +55,15 @@ I've also written a really basic client side routing component which takes a pat
 
     Another solution I've seen people touting to this is using CSS @imports, though apparently with the performance hit this brings when used in every component is prettttty hug.
 
--   ### Getting stuff into markup
-
-    This is likely just from being completely spoiled by JSX, but it's frustrating getting data from the component class into the html while trying to limit DOM manipulation to as little as possible. The current implementation is a super basic moustache like situation, but it's still not ideal having to boilerplate around my `processHtml` method in the component class.
-
 -   ### State and Attribute Management
 
-    As it stands, I'm using a really rudimentary React like state implementation, that'll queue up a rerender when setState is called. But in terms of passing attributes around in a way that doesn't involve loads of boilerplating, AND that's typesafe... I'm yet to come up with a good solution.
+    As it stands, I'm using a really rudimentary React like state implementation, that'll queue up a rerender when setState is called. But in terms of passing attributes around in a way that's typesafe... I'm yet to come up with a good solution.
 
 -   ### Typesafety
 
     Typesafety is a big issue generally with attributes. Attributes can't be typed properly, and essentially have to be `JSON.stringify`d and `JSON.parse`d to get anything other than a string in a attribute. I have a basic props implementation, but as it stands, everything is limited to being typed as a string and I can't really think of an elegant solution to that.
 
-    Another big part of this issue is that, because this is just straight up HTML, there won't be a way of doing type checking when adding custom attributes to Web Components.
+    Another big part of this issue is that, because this is just straight up HTML, there won't be a way of doing type checking when setting custom attributes in Web Components.
 
 -   ### Dumb render is a dumb idiot
 

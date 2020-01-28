@@ -1,11 +1,12 @@
 import '@webcomponents/webcomponentsjs';
 
-import { CoolComponent } from './components/component';
+import { CoolComponent, html } from './component';
 
 import './components/card';
 import './components/route';
 import './components/view';
 import './components/header';
+import './components/dropDown';
 
 import './views/home';
 import './views/page1';
@@ -15,8 +16,13 @@ import './styles';
 
 class EntryPoint extends CoolComponent {
     constructor() {
-        super('<slot></slot>');
+        super();
     }
+
+    getMarkup = () =>
+        html`
+            <slot></slot>
+        `;
 }
 
 window.customElements.define('entry-point', EntryPoint);

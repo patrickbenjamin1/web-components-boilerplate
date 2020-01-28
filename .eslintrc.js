@@ -26,13 +26,15 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': off,
         '@typescript-eslint/no-explicit-any': off,
         '@typescript-eslint/no-parameter-properties': off,
+        '@typescript-eslint/no-object-literal-type-assertion': off,
         '@typescript-eslint/camelcase': off,
         '@typescript-eslint/explicit-member-accessibility': off,
 
         'import/no-unresolved': off,
         'import/prefer-default-export': off,
+        'import/extensions': off,
 
-        'simple-import-sort/sort': error,
+        'simple-import-sort/sort': off,
         'no-inner-declarations': off,
         'class-methods-use-this': off,
         'no-useless-constructor': off,

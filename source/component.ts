@@ -1,50 +1,32 @@
-import { HTMLHelpers } from '../helpers/html';
-
 export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
-    private readonly html: string;
     private shadow: ShadowRoot;
 
     private willRender: boolean = false;
 
-    processHtml(html: string) {
-        return html;
-    }
-
-    constructor(html: string, initialState?: TState) {
+    constructor(initialState?: TState) {
         super();
 
-        this.html = html;
         this.state = initialState || ({} as TState);
     }
+
+    getMarkup: () => string = () => '';
 
     private render() {
         this.shadow.innerHTML = '';
 
         const templateElement = document.createElement('template');
 
-        templateElement.innerHTML = this.processHtml ? this.processHtml(this.html) : this.html;
-        templateElement.innerHTML = HTMLHelpers.replaceVariables(templateElement.innerHTML, [
-            ...(this.state
-                ? Object.keys(this.state).map(key => ({
-                      variable: key,
-                      value: (this.state as any)[key],
-                  }))
-                : []),
-            ...(this.props
-                ? Object.keys(this.props).map(key => ({
-                      variable: key,
-                      value: (this.props as any)[key],
-                  }))
-                : []),
-        ]);
+        templateElement.innerHTML = this.getMarkup();
 
         if (!this.shouldRender(templateElement)) {
             return;
         }
 
         this.beforeRender(templateElement);
-        this.shadow.appendChild(templateElement.content.firstChild);
-        this.afterRender(templateElement);
+        if (templateElement.content.firstChild) {
+            this.shadow.appendChild(templateElement.content.firstChild);
+            this.afterRender(templateElement);
+        }
     }
 
     forceRender() {
@@ -54,6 +36,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
     /** STATE */
 
     state: TState;
+
     setState = (newState: Partial<TState>, callback?: (newState: TState) => void) => {
         this.state = {
             ...this.state,
@@ -77,6 +60,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
 
     get props(): TProps {
         const attributeNames = this.getAttributeNames();
+
         return attributeNames.reduce((currentAttributes, attributeName) => {
             // convert key to camelcase
             const key = attributeName.replace(/-\w/g, str => str?.[1]?.toUpperCase());
@@ -92,6 +76,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
     /** rerender on props change */
 
     private mutationObserver = new MutationObserver(this.render);
+
     addMutationObserver() {
         this.mutationObserver.observe(this, {
             attributes: true,
@@ -126,15 +111,37 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
 
     /** LIFECYCLE HOOKS */
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     shouldRender(templateElement: HTMLTemplateElement) {
         return true;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     beforeRender(templateElement: HTMLTemplateElement) {}
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     afterRender(templateElement: HTMLTemplateElement) {}
+
     shouldConnect() {
         return true;
     }
+
     beforeConnect() {}
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
     afterConnect(shadowRoot: ShadowRoot) {}
+
     beforeDisconnect() {}
+}
+
+/*
+ * basically, just a tag to make the lit-html extension work without needing the module, and without getting its special HtmlTemplate type
+ * may be expanded later, however, to use more
+ * */
+
+export function html(stringArray: TemplateStringsArray, ...variables: any) {
+    return stringArray
+        .map((str, i) => str + (variables[i] || ''))
+        .join('')
+        .trim();
 }

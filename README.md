@@ -8,6 +8,18 @@ Decided to take it even further as an experiment in how much the vanilla web has
 
 Designed to be as vanilla as possible, thus NPM wise, it's basically just Typescript, linting, and webpack - nothing that should have an effect during run time, or change the size of the final bundle. The only thing is the `@webcomponents/webcomponentsjs` polyfill, to enable support for all the cool web components stuff as far back as IE11.
 
+## Prerequisites
+
+-   npm
+-   node
+
+### Recommended
+
+-   vscode
+-   prettier vscode plugin
+-   eslint vscode plugin
+-   lit-html vscode plugin (we're not using lit html itself, but the vscode plugin allows some really good syntax hightlighting if you use the template tag html)
+
 ## Get Started
 
 To get started, after cloning the repo, cd into the root and run
@@ -25,13 +37,15 @@ Web Components are the amalgamation of a set of pretty new (and therefore not es
 
 For a much more in depth description, [this 5 part series from css tricks](https://css-tricks.com/an-introduction-to-web-components/) includes a lot of good information.
 
-For my implementation, I've written a class found in `source/components/component.ts` which handles the rendering of imported html when added to the DOM or when an observed property changes. This class should be extended by other Web Components to avoid a tonne of boilerplating.
+For my implementation, I've written a class found in `source/component.ts` which handles the rendering of imported html when added to the DOM or when an observed property changes. This class should be extended by other Web Components to avoid a tonne of boilerplating.
 
 I've provided lifecycle methods which are called in the basic component lifecycle around the stuff I've written, allowing the new Component to hook into the render process in the base Class.
 
-The component constructor takes a the HTML, the initial state, and an array of custom attribute names which will be injected into the html. State will also be injected into the HTML, using the key names on the state placed in handlebars.
+The extending class should redefine the method `getMarkup`, returning the string value of the html to render in the component. For easier development, I'd recommend using the lit-html vscode plugin, and using the string template tag exported from `source/component.ts`. This enables syntax highlighting and intellisense in the html string.
 
-I've also written a really basic client side routing component which takes a path attribute, which renders its children if at that path.
+Changes to the attributes passed into the html tag of a web component, and also to the state defined by the component, will trigger the render method to run again, meaning that `getMarkup` can contain updating references to these.
+
+I've also written a really basic client side routing component which takes a path attribute, and renders its children only if at that path.
 
 ## Drawbacks
 

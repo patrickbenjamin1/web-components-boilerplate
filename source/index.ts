@@ -10,7 +10,6 @@ import './components/dropDown';
 
 import './views/home';
 import './views/page1';
-import './views/page2';
 
 import './styles';
 
@@ -21,7 +20,15 @@ class EntryPoint extends CoolComponent {
 
     getMarkup = () =>
         html`
-            <slot></slot>
+            <cool-header></cool-header>
+
+            <location-route path="/" exact="true">
+                <home-view></home-view>
+            </location-route>
+
+            <location-route path="/thing/:thingName" exact="true">
+                <page-1-view></page-1-view>
+            </location-route>
         `;
 }
 

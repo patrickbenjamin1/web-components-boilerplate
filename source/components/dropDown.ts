@@ -9,6 +9,8 @@ interface IDropDownProps {
 }
 
 export class DropDown extends CoolComponent<IDropDownState, IDropDownProps> {
+    private dropDownInner: HTMLDivElement;
+
     constructor() {
         super({ open: false });
     }
@@ -19,6 +21,7 @@ export class DropDown extends CoolComponent<IDropDownState, IDropDownProps> {
 
     afterRender() {
         this.addEventListener('click', this.onClick);
+        this.dropDownInner = this.getElementsByClassName('drop-down-inner')[0] as HTMLDivElement;
     }
 
     beforeDisconnect() {
@@ -31,6 +34,7 @@ export class DropDown extends CoolComponent<IDropDownState, IDropDownProps> {
                 .drop-down {
                     position: relative;
                     cursor: pointer;
+                    user-select: none;
                 }
 
                 .drop-down .drop-down-inner {

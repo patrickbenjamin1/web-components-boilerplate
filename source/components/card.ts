@@ -1,65 +1,61 @@
 import { CoolComponent, html } from '../component';
 
-interface ICardState {
-    clickedText: string;
-}
-
 interface ICardProps {
     cardName: string;
     to: string;
 }
 
-export class DataCard extends CoolComponent<ICardState, ICardProps> {
+export class DataCard extends CoolComponent<{}, ICardProps> {
     constructor() {
         super({ clickedText: 'NOT CLICKED' });
     }
 
-    onClick() {
-        this.setState({ clickedText: this.state.clickedText === 'CLICKED' ? 'NOT CLICKED' : 'CLICKED' });
-    }
+    getMarkup = () => {
+        const inner = html`
+            <div class="card">
+                <style>
+                    .card {
+                        box-shadow: var(--shadow);
+                        padding: var(--spacing-small);
+                        margin-bottom: var(--spacing-medium);
+                        transition: box-shadow var(--transition-quick);
+                        user-select: none;
+                        cursor: pointer;
+                    }
 
-    beforeRender() {
-        this.addEventListener('click', this.onClick);
-    }
+                    .card .card-bottom {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                    }
 
-    beforeDisconnect() {
-        this.removeEventListener('click', this.onClick);
-    }
+                    .card:hover {
+                        box-shadow: var(--shadow-big);
+                    }
 
-    getMarkup = () => html`
-        <div class="card">
-            <style>
-                .card {
-                    box-shadow: var(--shadow);
-                    padding: var(--spacing-small);
-                    margin-bottom: var(--spacing-medium);
-                    transition: box-shadow var(--transition-quick);
-                    user-select: none;
-                    cursor: pointer;
-                }
+                    a {
+                        text-decoration: none;
+                    }
 
-                .card .card-bottom {
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-between;
-                }
+                    a {
+                        color: black;
+                    }
+                </style>
 
-                .card:hover {
-                    box-shadow: var(--shadow-big);
-                }
-            </style>
-
-            <div class="card-bottom">
-                <a href="${this.props.to}">
+                <div class="card-bottom">
                     <h1>${this.props.cardName}</h1>
-                </a>
+                </div>
+
+                <slot></slot>
             </div>
+        `;
 
-            <p>${this.state.clickedText}</p>
-
-            <slot></slot>
-        </div>
-    `;
+        return this.props.to
+            ? html`
+                  <a href="${this.props.to}">${inner}</a>
+              `
+            : inner;
+    };
 }
 
 window.customElements.define('data-card', DataCard);

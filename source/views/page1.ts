@@ -2,16 +2,18 @@ import { CoolComponent, html } from '../component';
 
 const thing = ['a', 'b', 'c'];
 
-export class Page1View extends CoolComponent {
+interface IPage1ViewProps {
+    thingName: string;
+}
+
+export class Page1View extends CoolComponent<{}, IPage1ViewProps> {
     constructor() {
         super();
     }
 
     getMarkup = () => html`
         <page-view>
-            <p>THIS IS PAGE 1</p>
-
-            <data-card card-name="thing"><p>HELLOY</p></data-card>
+            <p>${this.props.thingName}</p>
 
             ${thing
                 .map(

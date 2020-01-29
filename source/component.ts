@@ -1,4 +1,6 @@
-export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
+import { TextHelpers } from './helpers/text';
+
+export class CoolComponent<TState = { [key: string]: any }, TProps = { [key: string]: any }> extends HTMLElement {
     private shadow: ShadowRoot;
 
     private willRender: boolean = false;
@@ -24,13 +26,15 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
 
         this.beforeRender(templateElement);
         if (templateElement.content.firstChild) {
-            this.shadow.appendChild(templateElement.content.firstChild);
+            const { children } = templateElement.content;
+
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i]?.cloneNode(true);
+                this.shadow.appendChild(child);
+            }
+
             this.afterRender(templateElement);
         }
-    }
-
-    forceRender() {
-        this.render();
     }
 
     /** STATE */
@@ -63,7 +67,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
 
         return attributeNames.reduce((currentAttributes, attributeName) => {
             // convert key to camelcase
-            const key = attributeName.replace(/-\w/g, str => str?.[1]?.toUpperCase());
+            const key = TextHelpers.kebabToCamel(attributeName);
             const value: string = this.getAttribute(attributeName);
 
             return {
@@ -105,7 +109,7 @@ export class CoolComponent<TState = {}, TProps = {}> extends HTMLElement {
     attributeChangedCallback(attrName: string, oldValue: string, newValue: string) {
         if (newValue !== oldValue) {
             (this as any)[attrName] = this.getAttribute(attrName);
-            this.forceRender();
+            this.render();
         }
     }
 

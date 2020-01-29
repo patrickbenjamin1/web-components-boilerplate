@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -16,6 +17,7 @@ module.exports = {
     output: {
         filename: 'app.js',
         path: path.resolve(__dirname, 'output/'),
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -60,6 +62,7 @@ module.exports = {
         historyApiFallback: true,
         port: 8000,
         writeToDisk: true,
+        open: 'index.html',
     },
     plugins: [htmlPlugin],
     resolve: {
